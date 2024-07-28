@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:html' as html;
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:web/web.dart' as html;
 
 import 'package:flutter/services.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 /// A web implementation of the SystemTheme plugin.
 class SystemThemeWeb {
@@ -26,8 +26,10 @@ class SystemThemeWeb {
         final e = html.document.body;
         final currentBackgroundColor = e?.style.backgroundColor;
         e?.style.backgroundColor = "highlight";
-        String? backgroundColor = e?.getComputedStyle().backgroundColor;
-        e?.style.backgroundColor = currentBackgroundColor;
+        String? backgroundColor =
+            e?.computedStyleMap().get('backgroundColor').toString();
+        e?.style.backgroundColor =
+            currentBackgroundColor ?? e.style.backgroundColor;
         if (backgroundColor != null) {
           backgroundColor = backgroundColor
               .replaceAll('rgb(', '')
